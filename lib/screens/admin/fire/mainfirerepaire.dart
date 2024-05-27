@@ -63,34 +63,34 @@ class _MainFirerepaireState extends State<MainFirerepaire> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  IconButton(
-                    style: IconButton.styleFrom(
-                        backgroundColor: MyConstant.kprimaryColor,
-                        padding: const EdgeInsets.all(20)),
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const MainfireDetail(),
-                      ),
-                    ),
-                    iconSize: 30,
-                    icon: const Icon(Icons.qr_code_scanner_rounded,
-                        color: Color.fromARGB(255, 255, 64, 121)),
-                  ),
+                  // IconButton(
+                  //   style: IconButton.styleFrom(
+                  //       backgroundColor: MyConstant.kprimaryColor,
+                  //       padding: const EdgeInsets.all(20)),
+                  //   onPressed: () => Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //       builder: (context) => const MainfireDetail(),
+                  //     ),
+                  //   ),
+                  //   iconSize: 30,
+                  //   icon: const Icon(Icons.qr_code_scanner_rounded,
+                  //       color: Color.fromARGB(255, 255, 64, 121)),
+                  // ),
                   Text('เปลี่ยนถังดับเพลิง', style: MyConstant().h4back()),
-                  IconButton(
-                    style: IconButton.styleFrom(
-                        backgroundColor: MyConstant.kprimaryColor,
-                        padding: const EdgeInsets.all(20)),
-                    onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const MainFireadd(),
-                        )).then((value) => listFire()),
-                    iconSize: 30,
-                    icon: const Icon(Icons.qr_code_scanner_rounded,
-                        color: Colors.lightBlueAccent),
-                  ),
+                  // IconButton(
+                  //   style: IconButton.styleFrom(
+                  //       backgroundColor: MyConstant.kprimaryColor,
+                  //       padding: const EdgeInsets.all(20)),
+                  //   onPressed: () => Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //         builder: (context) => const MainFireadd(),
+                  //       )).then((value) => listFire()),
+                  //   iconSize: 30,
+                  //   icon: const Icon(Icons.qr_code_scanner_rounded,
+                  //       color: Colors.lightBlueAccent),
+                  // ),
                 ],
               ),
               // Padding(
