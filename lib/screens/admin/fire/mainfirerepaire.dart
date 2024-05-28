@@ -59,9 +59,9 @@ class _MainFirerepaireState extends State<MainFirerepaire> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 15),
+              const SizedBox(height: 70),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // IconButton(
                   //   style: IconButton.styleFrom(
@@ -77,7 +77,7 @@ class _MainFirerepaireState extends State<MainFirerepaire> {
                   //   icon: const Icon(Icons.qr_code_scanner_rounded,
                   //       color: Color.fromARGB(255, 255, 64, 121)),
                   // ),
-                  Text('เปลี่ยนถังดับเพลิง', style: MyConstant().h4back()),
+                  Text('รายการที่รอเปลี่ยนถังดับเพลิง', style: MyConstant().h2back()),
                   // IconButton(
                   //   style: IconButton.styleFrom(
                   //       backgroundColor: MyConstant.kprimaryColor,
@@ -183,7 +183,7 @@ class _MainFirerepaireState extends State<MainFirerepaire> {
                       children: [
                         Text(
                           searchfireModel[index].fire_name!,
-                          style: MyConstant().h5dark(),
+                          style: MyConstant().h4dark(),
                         ),
                         // Text(
                         //   searchfireModel[index].fire_check_injection!,

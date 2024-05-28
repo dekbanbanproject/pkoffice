@@ -17,10 +17,12 @@ class FireChang extends StatefulWidget {
 }
 
 class _FireChangState extends State<FireChang> {
-  final formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
   late FireListmodel _fireModelchang;
   String? fire_id, fire_num, fire_name, fire_size, fire_color, fire_location;
   List<FireListmodel> fireModel = [];
+  TextEditingController changController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -38,7 +40,7 @@ class _FireChangState extends State<FireChang> {
   Future<List<FireListmodel>> getfire() async {
     try {
       final response = await http.get(Uri.parse(
-          '${MyConstant.domain}/pkoffice/api/getfirechang.php?isAdd=true'));
+          '${MyConstant.domain}/pkoffice/api/getfiredropdown.php?isAdd=true'));
       final body = json.decode(response.body) as List;
       if (response.statusCode == 200) {
         return body.map((e) {
@@ -59,6 +61,7 @@ class _FireChangState extends State<FireChang> {
 
   @override
   Widget build(BuildContext context) {
+    double size = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
@@ -76,40 +79,240 @@ class _FireChangState extends State<FireChang> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            FutureBuilder<List<FireListmodel>>(
-              future: getfire(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return DropdownButton(
-                    value: selectedValue,
-                    dropdownColor: Colors.white,
-                    isExpanded: true,
-                    hint: const Text('Select Fire Item'),
-                    items: snapshot.data!.map((e) {
-                      return DropdownMenuItem(
-                          value: e.fire_id.toString(),
-                          child: Text(e.fire_num.toString()));
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        selectedValue = value;
-                      });
-                    },
-                  );
-                } else if (snapshot.hasError) {
-                  return Text('error:${snapshot.error}');
-                } else {
-                  return const CircularProgressIndicator();
-                }
-              },
-            )
-          ],
+      body: SafeArea(
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+          behavior: HitTestBehavior.opaque,
+          child: Form(
+            key: formKey,
+            child: ListView(
+              children: [ 
+                Padding(
+                  padding: const EdgeInsets.only(top: 15,left: 20,right: 20,bottom: 10),
+                  child: Text('รายการถังสำรองทั้งหมด',style: MyConstant().h2(),),
+                ),
+                buildFireCode(size),
+                buildComment(size),
+                updateButtom(size),
+              ],
+            ),
+          ),
         ),
       ),
+      // body: Padding(
+      //   padding: const EdgeInsets.all(15.0),
+      //   child: Column(
+      //     children: [
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: FutureBuilder<List<FireListmodel>>(
+            //     future: getfire(),
+            //     builder: (context, snapshot) {
+            //       if (snapshot.hasData) {
+            //         return DropdownButton(
+            //           value: selectedValue,
+            //           dropdownColor: Colors.white,
+            //           isExpanded: true,
+            //           hint: const Text('Select Fire Chang Item'),
+            //           items: snapshot.data!.map((e) {
+            //             return DropdownMenuItem(
+            //               value: e.fire_id.toString(),
+            //               child: Container(
+            //                 child: Row(
+            //                   mainAxisAlignment: MainAxisAlignment.center,
+            //                   children: [
+            //                     Text('รหัส : ${e.fire_num.toString()}'),
+            //                     Text('  --  '),
+            //                     Text(e.fire_name.toString()),
+            //                   ],
+            //                 ),
+            //               ),
+            //             );
+            //           }).toList(),
+            //           onChanged: (value) {
+            //             setState(() {
+            //               selectedValue = value;
+            //             });
+            //           },
+            //         );
+            //       } else if (snapshot.hasError) {
+            //         return Text('error:${snapshot.error}');
+            //       } else {
+            //         return const CircularProgressIndicator();
+            //       }
+            //     },
+            //   ),
+            // ),
+      //       // Text('error:'),
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: TextFormField(
+            //     controller: changController,
+            //     validator: (value) {
+            //       if (value!.isEmpty) {
+            //         return 'กรุณากรอก หมายเหตุ';
+            //       } else {
+            //         return null;
+            //       }
+            //     },
+            //     decoration: InputDecoration(
+            //       labelStyle: MyConstant().h2(),
+            //       labelText: 'หมายเหตุ ',
+            //       prefixIcon: const Icon(
+            //         Icons.sync,
+            //         color: Color.fromARGB(255, 27, 207, 180),
+            //       ),
+            //       enabledBorder: OutlineInputBorder(
+            //         borderSide: const BorderSide(
+            //             color: Color.fromARGB(255, 27, 207, 180)),
+            //         borderRadius: BorderRadius.circular(30),
+            //       ),
+            //       focusedBorder: OutlineInputBorder(
+            //         borderSide: BorderSide(color: MyConstant.warning),
+            //         borderRadius: BorderRadius.circular(20),
+            //       ),
+            //     ),
+            //   ),
+            // ),
+      //        updateButtom(size),
+      //     ],
+      //   ),
+      // ),
+    );
+  }
+
+  Row buildFireCode(double size) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          margin: const EdgeInsets.symmetric(vertical: 17),
+          width: size * 0.9,
+          child: FutureBuilder<List<FireListmodel>>(
+                future: getfire(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return DropdownButton(
+                      value: selectedValue,
+                      dropdownColor: Colors.white,
+                      isExpanded: true,
+                      hint: const Text('Select Fire Chang Item'),
+                      items: snapshot.data!.map((e) {
+                        return DropdownMenuItem(
+                          value: e.fire_id.toString(),
+                          child: Container(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text('รหัส : ${e.fire_num.toString()}'),
+                                Text('  --  '),
+                                Text(e.fire_name.toString()),
+                              ],
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          selectedValue = value;
+                        });
+                      },
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text('error:${snapshot.error}');
+                  } else {
+                    return const CircularProgressIndicator();
+                  }
+                },
+              ),
+        
+        ),
+      ],
+    );
+  }
+
+  Row buildComment(double size) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          margin: const EdgeInsets.symmetric(vertical: 10),
+          width: size * 0.9,
+          child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                controller: changController,
+                maxLines: 5,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'กรุณากรอกหมายเหตุ';
+                  } else {
+                    return null;
+                  }
+                },
+                decoration: InputDecoration(
+                  labelStyle: MyConstant().h2(),
+                  labelText: 'กรุณากรอกหมายเหตุ ',
+                  prefixIcon: const Icon(
+                    Icons.sync,
+                    color: Color.fromARGB(255, 27, 207, 180),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(
+                        color: Color.fromARGB(255, 27, 207, 180)),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: MyConstant.warning),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+              ),
+            ),
+        
+        ),
+      ],
+    );
+  }
+
+  Row updateButtom(double size) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          margin: const EdgeInsets.symmetric(vertical: 18),
+          width: size * 0.6,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 3),
+            child: ElevatedButton.icon(
+              icon: const Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Icon(
+                  Icons.save_as,
+                  color: Color.fromARGB(255, 8, 190, 166),
+                  size: 30.0,
+                ),
+              ),
+              label: Text(
+                'Update',
+                style: MyConstant().h2save(),
+              ),
+              onPressed: () {
+                if (formKey.currentState!.validate()) {
+                  String comment = changController.text; 
+                  print('## comment = $comment');
+                 
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50.0),
+                  ),
+                  backgroundColor: const Color.fromARGB(255, 222, 248, 244)),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
