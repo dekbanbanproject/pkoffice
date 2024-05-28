@@ -14,6 +14,7 @@ class _FireChangState extends State<FireChang> {
   final formKey = GlobalKey<FormState>();
   late FireListmodel _fireModelchang;
   String? fire_id, fire_num, fire_name, fire_size, fire_color, fire_location;
+    List<FireListmodel> fireModel = [];
   @override
   void initState() {
     super.initState();
@@ -25,6 +26,8 @@ class _FireChangState extends State<FireChang> {
     fire_color = _fireModelchang.fire_color;
     fire_location = _fireModelchang.fire_location;
   }
+
+  Future<>
 
   @override
   Widget build(BuildContext context) {
