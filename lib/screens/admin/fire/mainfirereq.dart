@@ -71,10 +71,10 @@ class _MainfirereqState extends State<Mainfirereq> {
                     indicatorColor: Colors.white,
                     indicatorWeight: 3,
                     tabs: [
-                      Tab(
-                          icon: Icon(Icons.qr_code_scanner_rounded,
-                              color: Color.fromARGB(255, 255, 64, 121)),
-                          text: 'Scan Detail'),
+                      // Tab(
+                      //     icon: Icon(Icons.qr_code_scanner_rounded,
+                      //         color: Color.fromARGB(255, 255, 64, 121)),
+                      //     text: 'Scan Detail'),
                       Tab(
                           icon: Icon(Icons.fire_hydrant,
                               color: Color.fromARGB(255, 6, 189, 158)),
@@ -88,9 +88,9 @@ class _MainfirereqState extends State<Mainfirereq> {
               )
             ],
             body: TabBarView(children: [
-              Center(
-                child: Text('Detail'),
-              ),
+              // Center(
+              //   child: Text('Detail'),
+              // ),
               SingleChildScrollView(
                 child: Column(
                   children: [

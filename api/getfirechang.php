@@ -23,7 +23,7 @@
             $gauge                  = $_GET['fire_check_gauge'];
             $drawback               = $_GET['fire_check_drawback']; 
         
-             $sql = "SELECT * FROM fire WHERE active = 'N' ORDER BY fire_num DESC";
+             $sql = "SELECT * FROM fire WHERE active = 'N' AND fire_edit ='Narmal' ORDER BY fire_num DESC";
              $result = mysqli_query($conn, $sql) or die ("Error : $sql" .mysqli_error());
           
             // if ($result) {

@@ -1,11 +1,15 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pkoffice/models/firelistmodel.dart';
 import 'package:http/http.dart' as http;
+import 'package:pkoffice/screens/admin/fire/mainfirerepaire.dart';
 import 'package:pkoffice/utility/my_constant.dart';
+import 'package:pkoffice/utility/my_dialog.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FireChang extends StatefulWidget {
   final FireListmodel fireModelchang;
@@ -17,7 +21,7 @@ class FireChang extends StatefulWidget {
 }
 
 class _FireChangState extends State<FireChang> {
-    final formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
   late FireListmodel _fireModelchang;
   String? fire_id, fire_num, fire_name, fire_size, fire_color, fire_location;
   List<FireListmodel> fireModel = [];
@@ -64,7 +68,7 @@ class _FireChangState extends State<FireChang> {
     double size = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Color.fromARGB(255, 27, 207, 180),
         title: Padding(
           padding: const EdgeInsets.only(right: 35),
           child: Center(
@@ -86,10 +90,14 @@ class _FireChangState extends State<FireChang> {
           child: Form(
             key: formKey,
             child: ListView(
-              children: [ 
+              children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 15,left: 20,right: 20,bottom: 10),
-                  child: Text('รายการถังสำรองทั้งหมด',style: MyConstant().h2(),),
+                  padding: const EdgeInsets.only(
+                      top: 20, left: 30, right: 20, bottom: 5),
+                  child: Text(
+                    'รายการถังสำรองทั้งหมด',
+                    style: MyConstant().h2title(),
+                  ),
                 ),
                 buildFireCode(size),
                 buildComment(size),
@@ -103,77 +111,77 @@ class _FireChangState extends State<FireChang> {
       //   padding: const EdgeInsets.all(15.0),
       //   child: Column(
       //     children: [
-            // Padding(
-            //   padding: const EdgeInsets.all(8.0),
-            //   child: FutureBuilder<List<FireListmodel>>(
-            //     future: getfire(),
-            //     builder: (context, snapshot) {
-            //       if (snapshot.hasData) {
-            //         return DropdownButton(
-            //           value: selectedValue,
-            //           dropdownColor: Colors.white,
-            //           isExpanded: true,
-            //           hint: const Text('Select Fire Chang Item'),
-            //           items: snapshot.data!.map((e) {
-            //             return DropdownMenuItem(
-            //               value: e.fire_id.toString(),
-            //               child: Container(
-            //                 child: Row(
-            //                   mainAxisAlignment: MainAxisAlignment.center,
-            //                   children: [
-            //                     Text('รหัส : ${e.fire_num.toString()}'),
-            //                     Text('  --  '),
-            //                     Text(e.fire_name.toString()),
-            //                   ],
-            //                 ),
-            //               ),
-            //             );
-            //           }).toList(),
-            //           onChanged: (value) {
-            //             setState(() {
-            //               selectedValue = value;
-            //             });
-            //           },
-            //         );
-            //       } else if (snapshot.hasError) {
-            //         return Text('error:${snapshot.error}');
-            //       } else {
-            //         return const CircularProgressIndicator();
-            //       }
-            //     },
-            //   ),
-            // ),
+      // Padding(
+      //   padding: const EdgeInsets.all(8.0),
+      //   child: FutureBuilder<List<FireListmodel>>(
+      //     future: getfire(),
+      //     builder: (context, snapshot) {
+      //       if (snapshot.hasData) {
+      //         return DropdownButton(
+      //           value: selectedValue,
+      //           dropdownColor: Colors.white,
+      //           isExpanded: true,
+      //           hint: const Text('Select Fire Chang Item'),
+      //           items: snapshot.data!.map((e) {
+      //             return DropdownMenuItem(
+      //               value: e.fire_id.toString(),
+      //               child: Container(
+      //                 child: Row(
+      //                   mainAxisAlignment: MainAxisAlignment.center,
+      //                   children: [
+      //                     Text('รหัส : ${e.fire_num.toString()}'),
+      //                     Text('  --  '),
+      //                     Text(e.fire_name.toString()),
+      //                   ],
+      //                 ),
+      //               ),
+      //             );
+      //           }).toList(),
+      //           onChanged: (value) {
+      //             setState(() {
+      //               selectedValue = value;
+      //             });
+      //           },
+      //         );
+      //       } else if (snapshot.hasError) {
+      //         return Text('error:${snapshot.error}');
+      //       } else {
+      //         return const CircularProgressIndicator();
+      //       }
+      //     },
+      //   ),
+      // ),
       //       // Text('error:'),
-            // Padding(
-            //   padding: const EdgeInsets.all(8.0),
-            //   child: TextFormField(
-            //     controller: changController,
-            //     validator: (value) {
-            //       if (value!.isEmpty) {
-            //         return 'กรุณากรอก หมายเหตุ';
-            //       } else {
-            //         return null;
-            //       }
-            //     },
-            //     decoration: InputDecoration(
-            //       labelStyle: MyConstant().h2(),
-            //       labelText: 'หมายเหตุ ',
-            //       prefixIcon: const Icon(
-            //         Icons.sync,
-            //         color: Color.fromARGB(255, 27, 207, 180),
-            //       ),
-            //       enabledBorder: OutlineInputBorder(
-            //         borderSide: const BorderSide(
-            //             color: Color.fromARGB(255, 27, 207, 180)),
-            //         borderRadius: BorderRadius.circular(30),
-            //       ),
-            //       focusedBorder: OutlineInputBorder(
-            //         borderSide: BorderSide(color: MyConstant.warning),
-            //         borderRadius: BorderRadius.circular(20),
-            //       ),
-            //     ),
-            //   ),
-            // ),
+      // Padding(
+      //   padding: const EdgeInsets.all(8.0),
+      //   child: TextFormField(
+      //     controller: changController,
+      //     validator: (value) {
+      //       if (value!.isEmpty) {
+      //         return 'กรุณากรอก หมายเหตุ';
+      //       } else {
+      //         return null;
+      //       }
+      //     },
+      //     decoration: InputDecoration(
+      //       labelStyle: MyConstant().h2(),
+      //       labelText: 'หมายเหตุ ',
+      //       prefixIcon: const Icon(
+      //         Icons.sync,
+      //         color: Color.fromARGB(255, 27, 207, 180),
+      //       ),
+      //       enabledBorder: OutlineInputBorder(
+      //         borderSide: const BorderSide(
+      //             color: Color.fromARGB(255, 27, 207, 180)),
+      //         borderRadius: BorderRadius.circular(30),
+      //       ),
+      //       focusedBorder: OutlineInputBorder(
+      //         borderSide: BorderSide(color: MyConstant.warning),
+      //         borderRadius: BorderRadius.circular(20),
+      //       ),
+      //     ),
+      //   ),
+      // ),
       //        updateButtom(size),
       //     ],
       //   ),
@@ -189,43 +197,42 @@ class _FireChangState extends State<FireChang> {
           margin: const EdgeInsets.symmetric(vertical: 17),
           width: size * 0.9,
           child: FutureBuilder<List<FireListmodel>>(
-                future: getfire(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return DropdownButton(
-                      value: selectedValue,
-                      dropdownColor: Colors.white,
-                      isExpanded: true,
-                      hint: const Text('Select Fire Chang Item'),
-                      items: snapshot.data!.map((e) {
-                        return DropdownMenuItem(
-                          value: e.fire_id.toString(),
-                          child: Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text('รหัส : ${e.fire_num.toString()}'),
-                                Text('  --  '),
-                                Text(e.fire_name.toString()),
-                              ],
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                      onChanged: (value) {
-                        setState(() {
-                          selectedValue = value;
-                        });
-                      },
+            future: getfire(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return DropdownButton(
+                  value: selectedValue,
+                  dropdownColor: Colors.white,
+                  isExpanded: true,
+                  hint: const Text('Select Fire Chang Item'),
+                  items: snapshot.data!.map((e) {
+                    return DropdownMenuItem(
+                      value: e.fire_id.toString(),
+                      child: Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('รหัส : ${e.fire_num.toString()}'),
+                            Text('  --  '),
+                            Text(e.fire_name.toString()),
+                          ],
+                        ),
+                      ),
                     );
-                  } else if (snapshot.hasError) {
-                    return Text('error:${snapshot.error}');
-                  } else {
-                    return const CircularProgressIndicator();
-                  }
-                },
-              ),
-        
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      selectedValue = value;
+                    });
+                  },
+                );
+              } else if (snapshot.hasError) {
+                return Text('error:${snapshot.error}');
+              } else {
+                return const CircularProgressIndicator();
+              }
+            },
+          ),
         ),
       ],
     );
@@ -239,37 +246,37 @@ class _FireChangState extends State<FireChang> {
           margin: const EdgeInsets.symmetric(vertical: 10),
           width: size * 0.9,
           child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextFormField(
-                controller: changController,
-                maxLines: 5,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'กรุณากรอกหมายเหตุ';
-                  } else {
-                    return null;
-                  }
-                },
-                decoration: InputDecoration(
-                  labelStyle: MyConstant().h2(),
-                  labelText: 'กรุณากรอกหมายเหตุ ',
-                  prefixIcon: const Icon(
-                    Icons.sync,
-                    color: Color.fromARGB(255, 27, 207, 180),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
-                        color: Color.fromARGB(255, 27, 207, 180)),
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: MyConstant.warning),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
+            padding: const EdgeInsets.all(8.0),
+            child: TextFormField(
+              controller: changController,
+              maxLines: 5,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'กรุณากรอกหมายเหตุ';
+                } else {
+                  return null;
+                }
+                
+              },
+              decoration: InputDecoration(
+                labelStyle: MyConstant().h2(),
+                labelText: 'กรุณากรอกหมายเหตุ ',
+                prefixIcon: const Icon(
+                  Icons.sync,
+                  color: Color.fromARGB(255, 27, 207, 180),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                      color: Color.fromARGB(255, 27, 207, 180)),
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: MyConstant.warning),
+                  borderRadius: BorderRadius.circular(20),
                 ),
               ),
             ),
-        
+          ),
         ),
       ],
     );
@@ -299,9 +306,9 @@ class _FireChangState extends State<FireChang> {
               ),
               onPressed: () {
                 if (formKey.currentState!.validate()) {
-                  String comment = changController.text; 
+                  String comment = changController.text;
                   print('## comment = $comment');
-                 
+                  comfirmDialog();
                 }
               },
               style: ElevatedButton.styleFrom(
@@ -313,6 +320,107 @@ class _FireChangState extends State<FireChang> {
           ),
         ),
       ],
+    );
+  }
+
+  Future<Null> comfirmDialog() async {
+    showDialog(
+      context: context,
+      builder: (context) => SimpleDialog(
+        title: const Text('บันทึกข้อมูลใช่ไหม ?'),
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                child: ElevatedButton.icon(
+                  label: Text(
+                    ' Yes',
+                    style: MyConstant().h2save(),
+                  ),
+                  onPressed: () {
+                    if (selectedValue.isEmpty || changController.text.isEmpty) {
+                      MyDialog().normalDialog(
+                          context, 'ยังไม่ได้ใส่ข้อมูล', 'ข้อมูลว่าง');
+                      //  return
+                      // Navigator.pop(context);
+                    } else {
+                      // Navigator.pop(context);
+                      saveFirechange();
+                    }
+                  },
+                  // onPressed: () => comfirmDialog(),
+                  style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      backgroundColor:
+                          const Color.fromARGB(255, 222, 248, 244)),
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Future<Null> saveFirechange() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance(); 
+    String id = preferences.getString('id')!;
+    String comment = changController.text;
+    String path =
+        '${MyConstant.domain}/pkoffice/api/fireChangedinsert.php?isAdd=true&fire_id=$fire_id&fire_num=$fire_num&fire_num_chang=$selectedValue&userid=$id&fire_chang_comment=$comment';
+    await Dio().get(path).then((value) async {
+      String dd = value.toString();
+      print('######## Vaaaaaaaaaa = $dd');
+      if (value.toString() == 'false') {
+        MyDialog().normalDialog(context, 'บันทึกไปแล้ว', 'ข้อมูลซ้ำ');
+      } else {
+        SuccessDialog();
+        
+      }
+    });
+  }
+
+  Future<Null> SuccessDialog() async {
+    showDialog(
+      context: context,
+      builder: (context) => SimpleDialog(
+        title: const Text('บันทึกข้อมูลสำเร็จ'),
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                child: ElevatedButton.icon(
+                  label: Text(
+                    ' Close',
+                    style: MyConstant().h2save(),
+                  ),
+                  onPressed: () {
+                    final route =
+                        MaterialPageRoute(builder: (context) => MainFirerepaire());
+                 
+                    Navigator.pushAndRemoveUntil(
+                        context, route, (route) => false); 
+                    setState(() {
+                      selectedValue = '';
+                      changController.text = ''; 
+                    });
+                  },
+                  style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      backgroundColor:
+                          const Color.fromARGB(255, 222, 248, 244)),
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 }

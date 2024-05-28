@@ -18,6 +18,7 @@
         if ($_GET['isAdd'] == 'true') {
             $date        = date('Y-m-d');
             $y = date('Y') + 543;
+            $m = date('m');
             $newweek = date('Y-m-d', strtotime($date . ' -1 week')); //ย้อนหลัง 1 สัปดาห์
             $newDate = date('Y-m-d', strtotime($date . ' -1 months')); //ย้อนหลัง 1 เดือน
             $newyear = date('Y-m-d', strtotime($date . ' -1 year')); //ย้อนหลัง 1 ปี 
@@ -41,7 +42,7 @@
             // ");
 
             
-            $result = mysqli_query($conn,"SELECT * FROM fire_check WHERE check_date BETWEEN '$newDate' AND '$date' ORDER BY check_date DESC");
+            $result = mysqli_query($conn,"SELECT * FROM fire_check WHERE month(check_date)= '$m' ORDER BY check_date DESC");
 
             // $sql = "SELECT * FROM cctv_check WHERE cctv_check_date BETWEEN '$newDate' AND '$date' AND fire_extinguisher='Y' ORDER BY cctv_check_date DESC";
             // $result = mysqli_query($conn, $sql) or die ("Error : $sql" .mysqli_error());
