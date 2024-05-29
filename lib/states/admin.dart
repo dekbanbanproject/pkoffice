@@ -54,7 +54,7 @@ class _AdminPageState extends State<AdminPage> {
     //อ่านข้อมูลจาก Barcode และ QRCODE
     String? cameraScanResult = await scanner.scan();
     setState(() {
-      scanresult = cameraScanResult!;
+      scanresult = cameraScanResult;
     });
   }
 
