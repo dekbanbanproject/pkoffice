@@ -272,8 +272,7 @@ class _AdminPageState extends State<AdminPage> {
 //         items: <BottomNavigationBarItem>[cctvPage(),aboutNav()],
 //       );
 // }
-      // bottomNavigationBar: showButtonNavigator(),
-    
+      // bottomNavigationBar: showButtonNavigator(),    
 // }
 //   BottomNavigationBar showButtonNavigator() => BottomNavigationBar(
 //         onTap: (value) {
