@@ -363,7 +363,7 @@ class _MainAuthpidsitState extends State<MainAuthpidsit> {
                           style: IconButton.styleFrom(
                               backgroundColor: MyConstant.kprimaryColor,
                               padding: const EdgeInsets.all(10)),
-                          iconSize: 40,
+                          iconSize: 50,
                           icon: const Icon(Icons.fingerprint),
                           color: const Color.fromARGB(255, 255, 128, 44),
                           tooltip: 'Login',
@@ -374,31 +374,31 @@ class _MainAuthpidsitState extends State<MainAuthpidsit> {
                           },
                         ),
                       ),
+                      // Padding(
+                      //   padding: const EdgeInsets.only(left: 2, right: 2),
+                      //   child: IconButton(
+                      //     style: IconButton.styleFrom(
+                      //         backgroundColor: MyConstant.kprimaryColor,
+                      //         padding: const EdgeInsets.all(10)),
+                      //     iconSize: 40,
+                      //     icon: const Icon(Icons.download),
+                      //     // color: Color.fromARGB(255, 44, 149, 235),
+                      //     color: const Color.fromARGB(255, 160, 196, 250),
+                      //     tooltip: 'Pull Invoice',
+                      //     onPressed: () {
+                      //       setState(() {
+                      //         fdh_minipullhosinv();
+                      //       });
+                      //     },
+                      //   ),
+                      // ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 2, right: 2),
+                        padding: const EdgeInsets.only(left: 3, right: 3),
                         child: IconButton(
                           style: IconButton.styleFrom(
                               backgroundColor: MyConstant.kprimaryColor,
                               padding: const EdgeInsets.all(10)),
-                          iconSize: 40,
-                          icon: const Icon(Icons.download),
-                          // color: Color.fromARGB(255, 44, 149, 235),
-                          color: const Color.fromARGB(255, 160, 196, 250),
-                          tooltip: 'Pull Invoice',
-                          onPressed: () {
-                            setState(() {
-                              fdh_minipullhosinv();
-                            });
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 2, right: 2),
-                        child: IconButton(
-                          style: IconButton.styleFrom(
-                              backgroundColor: MyConstant.kprimaryColor,
-                              padding: const EdgeInsets.all(10)),
-                          iconSize: 40,
+                          iconSize: 50,
                           icon: const Icon(Icons.download),
                           color: const Color.fromARGB(255, 201, 20, 218),
                           tooltip: 'Pull NoInvoice',
@@ -410,12 +410,12 @@ class _MainAuthpidsitState extends State<MainAuthpidsit> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 2, right: 2),
+                        padding: const EdgeInsets.only(left: 3, right: 3),
                         child: IconButton(
                           style: IconButton.styleFrom(
                               backgroundColor: MyConstant.kprimaryColor,
                               padding: const EdgeInsets.all(10)),
-                          iconSize: 40,
+                          iconSize: 50,
                           icon: const Icon(Icons.upload),
                           color: const Color.fromARGB(255, 252, 64, 111),
                           tooltip: 'Pid Sit',
@@ -427,12 +427,12 @@ class _MainAuthpidsitState extends State<MainAuthpidsit> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 2, right: 2),
+                        padding: const EdgeInsets.only(left: 3, right: 3),
                         child: IconButton(
                           style: IconButton.styleFrom(
                               backgroundColor: MyConstant.kprimaryColor,
                               padding: const EdgeInsets.all(10)),
-                          iconSize: 40,
+                          iconSize: 50,
                           icon: const Icon(Icons.download),
                           color: const Color.fromARGB(255, 4, 197, 193),
                           tooltip: 'Pull BookID',
