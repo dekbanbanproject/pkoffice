@@ -103,7 +103,7 @@ class _MainFireState extends State<MainFire> {
                 });
               },
               icon: Icon(
-                Icons.person,
+                Icons.select_all,
                 size: 30,
                 color: currentIndex == 4
                     ? MyConstant.cctvprofileColor
