@@ -60,7 +60,8 @@ class _FireMainPageState extends State<FireMainPage> {
                 });
               },
               icon: Icon(
-                Icons.video_camera_front,
+                // Icons.video_camera_front,
+                Icons.fire_extinguisher,
                 size: 30,
                 color: currentIndex == 0
                     ? MyConstant.cctvhomeColor
