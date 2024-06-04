@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:pkoffice/models/firemodel.dart';
 import 'package:pkoffice/screens/admin/fire/mainfireadd.dart';
-import 'package:pkoffice/screens/admin/fire/mainfiredetail.dart';
 import 'package:pkoffice/screens/admin/fire/mainfireedit.dart';
 import 'package:pkoffice/utility/my_constant.dart';
 

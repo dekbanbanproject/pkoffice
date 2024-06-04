@@ -5,11 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:pkoffice/models/firelistmodel.dart';
-import 'package:pkoffice/models/firemodel.dart';
 import 'package:pkoffice/screens/admin/fire/firechang.dart';
-import 'package:pkoffice/screens/admin/fire/mainfireadd.dart';
-import 'package:pkoffice/screens/admin/fire/mainfiredetail.dart';
-import 'package:pkoffice/screens/admin/fire/mainfireedit.dart';
 import 'package:pkoffice/utility/my_constant.dart';
 
 class MainFirerepaire extends StatefulWidget {
