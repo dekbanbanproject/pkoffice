@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pkoffice/utility/my_constant.dart';
 
 class MainFirereport extends StatefulWidget {
   const MainFirereport({super.key});
@@ -10,6 +11,27 @@ class MainFirereport extends StatefulWidget {
 class _MainFirereportState extends State<MainFirereport> {
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text('MainFirereport'));
+    return Scaffold(
+      backgroundColor: Colors.blue[500],
+      appBar: AppBar(
+        elevation: 0,
+        title: const Text('Fire Report'),
+        centerTitle: false,
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(right: 5),
+            child: IconButton(
+              style: IconButton.styleFrom(
+                  backgroundColor: MyConstant.kprimaryColor,
+                  padding: const EdgeInsets.all(15)),
+              onPressed: () {},
+              iconSize: 25,
+              color: Colors.lightBlue,
+              icon: const Icon(Icons.notifications),
+            ),
+          ),
+        ],
+      ), 
+    );
   }
 }
